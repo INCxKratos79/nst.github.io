@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institute Name | Home</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><a href="index.html"><img src="assets/nst.jpg" alt="NST Institute Logo" style="height:40px;"></a></div>
+        <div style="display: flex; align-items: center;">
+            <button id="theme-toggle" onclick="toggleTheme()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; margin-right: 20px;">🌙</button>
+            <div class="menu-toggle" onclick="toggleMenu()" style="cursor:pointer;">
+                <span style="font-size: 28px;">&#9776;</span>
+            </div>
+        </div>
+        <div id="nav-menu" class="nav-menu">
+            <a href="index.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style:italic">Home</a>
+            <a href="management.html" target="_blank" rel="noopener noreferrer" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Management</a>
+            <a href="#facilities" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Facilities</a>
+            <a href="login.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Login Portal</a>
+        </div>
+        <script>
+            function toggleMenu() {
+            var menu = document.getElementById('nav-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            }
+            // Optional: Hide menu when clicking outside
+            document.addEventListener('click', function(e) {
+            var menu = document.getElementById('nav-menu');
+            var toggle = document.querySelector('.menu-toggle');
+            if (menu.style.display === 'block' && !menu.contains(e.target) && !toggle.contains(e.target)) {
+                menu.style.display = 'none';
+            }
+            });
+
+            function toggleTheme() {
+                const body = document.body;
+                const themeToggle = document.getElementById('theme-toggle');
+                body.classList.toggle('dark-theme');
+                if (body.classList.contains('dark-theme')) {
+                    themeToggle.textContent = '☀️';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    themeToggle.textContent = '🌙';
+                    localStorage.setItem('theme', 'light');
+                }
+            }
+
+            // Load saved theme on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                const savedTheme = localStorage.getItem('theme');
+                const themeToggle = document.getElementById('theme-toggle');
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark-theme');
+                    themeToggle.textContent = '☀️';
+                } else {
+                    themeToggle.textContent = '🌙';
+                }
+            });
+        </script>
+    </nav>
+
+    <header class="hero">
+        <style>
+        .hero {
+            animation: swipe 30s infinite linear;
+            }
+
+            @keyframes swipe {
+                5% { background-image: url('assets/IMG1.jpg'); }
+                33% { background-image: url('assets/IMG2.jpg'); }
+                66% { background-image: url('assets/IMG3.jpg'); }
+                100% { background-image: url('assets/Background.jpeg'); }
+        }
+        </style>
+        <h1>Welcome to Excellence in Education</h1>
+        <p>Empowering students to lead the future.</p>
+    </header>
+    <section id="brochure" style="background: var(--card-bg); padding: 40px 0;">
+        <h2 style="text-align: center;">Information Brochure</h2>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <img id="brochure-img" src="assets/NST1.jpg" alt="Brochure Page 1" style="width: 500px; height: 500px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="showBrochure(0)" style="margin-right: 10px;"><strong> < </strong></button>
+            <button onclick="showBrochure(1)"><strong> > </strong></button>
+        </div>
+        <script>
+            const brochureImages = ['assets/NST1.jpg', 'assets/bca.jpg'];
+            function showBrochure(index) {
+                document.getElementById('brochure-img').src = brochureImages[index];
+            }
+        </script>
+    </section>
+<section id="News" style="background: var(--section-bg); padding: 40px 0;">
+    <h2 style="text-align: center;">Latest Information.</h2>
+    <div class="grid-container" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+        <div class="card" style="width: 300px;">
+            <img id="info1-img" src="assets/Information/Info1.jpg" alt="News 1" style="width: 300px; height: 300px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <h3>BCA course is AICTE Approved !</h3>
+            <p>We are excited to announce that our BCA (Bachelor of Computer Application) program has received AICTE approval.
+            This accreditation ensures that our curriculum meets high standards of quality and industry relevance, enhancing student's educational and career opportunities</p>
+        </div>
+        </section>
+
+<section id="universities" style="background: var(--section-bg); padding: 40px 0;">
+    <h2 style="text-align: center;">Partner Universities</h2>
+    <div class="grid-container" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+        <div class="card" style="width: 220px; text-align: center;">
+            <img src="assets/mcrp.png" alt="University 1" style="width: 100%; height: 190px; ">
+            <h3> <a href="https://www.mcu.ac.in/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">Chaturvedi National University of Journalism and Communication</a></h3>
+        </div>
+        <div class="card" style="width: 220px; text-align: center;">
+            <img src="assets/acrp.jpg" alt="University 2" style="width: 80%; height: 180px; object-fit: cover;">
+            <h3> <a href="https://www.arunachaluniversity.ac.in/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">Arunanchal University of Studies</a></h3>
+        </div>
+        <div class="card" style="width: 220px; text-align: center;">
+            <img src="assets/nielit.jpg" alt="University 3" style="width: 90%; height: 180px; object-fit: cover;">
+            <h3> <a href="https://www.nielit.gov.in/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">N.I.E.L.I.T</a></h3>
+        </div>
+        <div class="card" style="width: 220px; text-align: center;">
+            <img src="assets/SVSU.JPG" alt="University 4" style="width: 80%; height: 180px; object-fit: cover;">
+            <h3> <a href="https://subharti.org/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">Swami Vivekanand Subharti University</a></h3>
+        </div>
+    </div>
+</section>
+
+    <section id="facilities" style="background: var(--section-bg);">
+
+        <h2>Campus Facilities</h2>
+        <div class="grid-container">
+            <div class="card">
+                <img src="assets/campus.jpg" alt="Modern Campus">
+                <h3>Modern Campus</h3>
+                <p>Eco-friendly and spacious learning environment.</p>
+            </div>
+            <div class="card">
+                <img src="assets/wifi1.jpg" alt="High-Speed Wi-Fi">
+                <h3>High-Speed Wi-Fi</h3>
+                <p>24/7 connectivity across the entire campus.</p>
+            </div>
+            <div class="card">
+                <img src="assets/hostel1.jpg" alt="Private Hostel">
+                <h3>Private Hostel</h3>
+                <p>Safe and comfortable housing for outstation students.</p>
+            </div>
+            <div class="card">
+                <img src="assets/jobplacement.jpg" alt="Placement Assistance" style="width: 50%; height: 110px; object-fit: cover;">
+                <h3>Placement Assistance</h3>
+                <p>Dedicated cell for career guidance and job fairs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="alumni">
+        <h2>Our Alumni</h2>
+        <p style="text-align: center;">Our graduates work at top companies.</p>
+        <div class="grid-container">
+            <div class="card">
+                <img src="assets/Alumni/Alumni1.jpg" alt="Shristi" style="width: 50%; height: 200px; object-fit: cover;">
+                <p>"NST helped me grow in fields of education and other verbal and non-verbal skills.
+                     I appreciate the time and assistance provided by this institution in my most struggling phase of life and today all my credit goes to NST for making me achieve my dreams.
+                     I would truely recommend all to be a part of NST."</p>
+                <h4>- Shristi Shrivastava</h4>
+            </div>
+            <div class="card">
+                <img src="assets/Alumni/Alumni3.jpg" alt="Samridhi" style="width: 50%; height: 200px; object-fit: cover;">
+                <p>Company : Coforge</p>
+                <strong>Location : Milton Keynes(London)</strong>
+<p>I am glad to share my wonderful experience with NST. Today I reached the heights of my career life what I never would have expected.
+ I would really suggest one to be a part of this institution, they give better guidance and suggestions what other institutes don't.</p>
+                <h4>- Samridhi Srivastava</h4>
+            </div>
+            <div class="card">
+                <img src="assets/Alumni/Alumni2.jpg" alt="Devanand" style="width: 50%; height: 200px; object-fit: cover;">
+                <p>Company : Globallogic</p>
+                <strong>
+Designation : Software Consultant Engineering(tech lead)</strong>
+<p>Package : 35 LPA</p>
+<p>Experience : 9 Yrs</p>
+<strong>- Devanand Pandey</strong>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; Designed & Developed by RISHABH | NST Institute. All Rights Reserved.</p>
+        <p2></p2>
+    </footer>
+
+</body>
+</html>
