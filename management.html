@@ -18,8 +18,18 @@
         <div id="nav-menu" class="nav-menu">
             <a href="index.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style:italic">Home</a>
             <a href="management.html" target="_blank" rel="noopener noreferrer" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Management</a>
-            <a href="#facilities" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Facilities</a>
+            <a href="index.html#facilities" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Facilities</a>
             <a href="login.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Login Portal</a>
+            <a href="courses.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Courses</a>
+        <script>
+            // Add hover to open nav menu
+            document.querySelector('.menu-toggle').addEventListener('mouseenter', function() {
+                document.getElementById('nav-menu').style.display = 'block';
+            });
+            document.querySelector('.menu-toggle').addEventListener('mouseleave', function() {
+                document.getElementById('nav-menu').style.display = 'block';
+            });
+            </script>
         </div>
         <script>
             function toggleMenu() {
@@ -63,14 +73,23 @@
     </nav>
 
     <section id="management">
-        <section style="background-image: url('assets/Managm_BG.jpg'); background-size: cover; background-position: center; height: 100vh;">
         <h2>Our Management</h2>
         <div class="grid-container">
+            <div class="card">
+                <img src="assets/clients/director.png" alt="Director" style="height: 100px;">
+                <h3>S.L Srivastava</h3>
+                <p><strong>Director</strong></p>
+            </div>
+            <div class="card">
+                <img src="assets/clients/founder.png" alt="Founder">
+                <h3>Mr. Sanjay Srivastava</h3>
+                <p><strong>Founder</strong></p>
+            </div>
             <div class="card">
                 <img src="assets/clients/vijay.jpg" alt="Manager">
                 <h3>Mr. Vijay Yadav</h3>
                 <p><strong>Manager</strong></p>
-                <p>15+ years of educational leadership.</p>
+                <p>15+ years of educational leadership</p>
             </div>
             <div class="card">
                 <img src="assets/clients/somnath.jpg" alt="Teacher">
@@ -79,11 +98,10 @@
                 <p>Expert in DSA, DBMS, Operating Systems.</p>
             </div>
             <div class="card">
-                <img src="assets/teacher2.jpg" alt="Teacher">
+                <img src="assets/clients/mahendra.jpg" alt="Teacher">
                 <h3>Mr. Mahendra Pandey</h3>
                 <p><strong>Senior Lecturer</strong></p>
-                <p>Specializes in Programming Languages. JAVA, PYTHON, HTML,WEB Development, Cloud Computing.</p>
-            </div>
+                <p>Specialization in Programming Languages. e.g- JAVA, PYTHON, HTML,WEB Development, Cloud Computing.</p>
         </div>
     </section>
 
