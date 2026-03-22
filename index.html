@@ -73,8 +73,8 @@
     </nav>
 
     <header class="hero" id="hero">
-        <h1>Welcome to Excellence in Education</h1>
-        <p>Empowering students to lead the future.</p>
+        <h1 style="text-align: center; margin-top: 300px; ">Welcome to Excellence in Education</h1>
+        <p style="text-align: center; ">Empowering students to lead the future.</p>
         <script>
             const heroImages = ['assets/IMG1.jpg', 'assets/IMG2.jpg', 'assets/IMG3.jpg', 'assets/Background.jpeg'];
             let currentIndex = 0;
@@ -85,7 +85,9 @@
                 hero.style.backgroundSize = 'cover';
                 hero.style.backgroundPosition = 'center';
                 hero.style.backgroundRepeat = 'no-repeat';
-                hero.style.height = '500px';
+                hero.style.height = '400px';
+                hero.style.transition = 'background-image 1s ease-in-out';
+                hero.style.opacity = '0.8';
                 currentIndex = (currentIndex + 1) % heroImages.length;
             }
             
@@ -110,9 +112,9 @@
         </script>
     </section>
 <section id="News" style="background: var(--section-bg); padding: 40px 0;">
-    <h2 style="text-align: center; padding: 110px; padding-bottom: -100vh;">Latest Information.</h2>
+    <h2 style="text-align: center; padding: 110px; padding-bottom: -100vh; margin-top: -100px;">Latest Information.</h2>
     <div class="grid-container" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; padding: 50px; ">
-        <div class="card" style="width: 300px; ">
+        <div class="card" style="width: 300px; margin-top: -100px; ">
             <img id="info1-img" src="assets/Information/Info1.jpg" alt="News 1" style="width: 300px; height: 300px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <h3>BCA course is AICTE Approved !</h3>
             <p>We are excited to announce that our BCA (Bachelor of Computer Application) program has received AICTE approval.
@@ -174,14 +176,14 @@
         <p style="text-align: center;">Our graduates work at top companies.</p>
         <div class="grid-container">
             <div class="card">
-                <img src="assets/Alumni/Alumni1.jpg" alt="Shristi" style="width: 50%; height: 200px; object-fit: cover;">
+                <img src="assets/Alumni/Alumni1.jpg" alt="Shristi" style="width: 55%; height: 200px; object-fit:fill;">
                 <p>"NST helped me grow in fields of education and other verbal and non-verbal skills.
                      I appreciate the time and assistance provided by this institution in my most struggling phase of life and today all my credit goes to NST for making me achieve my dreams.
                      I would truely recommend all to be a part of NST."</p>
                 <h4>- Shristi Shrivastava</h4>
             </div>
             <div class="card">
-                <img src="assets/Alumni/Alumni3.jpg" alt="Samridhi" style="width: 50%; height: 200px; object-fit: cover;">
+                <img src="assets/Alumni/Alumni3.jpg" alt="Samridhi" style="width: 55%; height: 200px; object-fit: fill;">
                 <p>Company : Coforge</p>
                 <strong>Location : Milton Keynes(London)</strong>
 <p>I am glad to share my wonderful experience with NST. Today I reached the heights of my career life what I never would have expected.
@@ -189,7 +191,7 @@
                 <h4>- Samridhi Srivastava</h4>
             </div>
             <div class="card">
-                <img src="assets/Alumni/Alumni2.jpg" alt="Devanand" style="width: 50%; height: 200px; object-fit: cover;">
+                <img src="assets/Alumni/Alumni2.jpg" alt="Devanand" style="width: 55%; height: 200px; object-fit: fill;">
                 <p>Company : Globallogic</p>
                 <strong>
 Designation : Software Consultant Engineering(tech lead)</strong>
