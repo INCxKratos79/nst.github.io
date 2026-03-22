@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institute Name | Home</title>
+    <title>NST Gkp - Home</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
     <nav>
         <div class="logo"><a href="index.html"><img src="assets/nst.jpg" alt="NST Institute Logo" style="height:40px;"></a></div>
         <div style="display: flex; align-items: center;">
@@ -21,6 +20,16 @@
             <a href="management.html" target="_blank" rel="noopener noreferrer" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Management</a>
             <a href="#facilities" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Facilities</a>
             <a href="login.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Login Portal</a>
+            <a href="courses.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Courses</a>
+            <script>
+            // Add hover to open nav menu
+            document.querySelector('.menu-toggle').addEventListener('mouseenter', function() {
+                document.getElementById('nav-menu').style.display = 'block';
+            });
+            document.querySelector('.menu-toggle').addEventListener('mouseleave', function() {
+                document.getElementById('nav-menu').style.display = 'block';
+            });
+            </script>
         </div>
         <script>
             function toggleMenu() {
@@ -63,26 +72,31 @@
         </script>
     </nav>
 
-    <header class="hero">
-        <style>
-        .hero {
-            animation: swipe 30s infinite linear;
-            }
-
-            @keyframes swipe {
-                5% { background-image: url('assets/IMG1.jpg'); }
-                33% { background-image: url('assets/IMG2.jpg'); }
-                66% { background-image: url('assets/IMG3.jpg'); }
-                100% { background-image: url('assets/Background.jpeg'); }
-        }
-        </style>
+    <header class="hero" id="hero">
         <h1>Welcome to Excellence in Education</h1>
         <p>Empowering students to lead the future.</p>
+        <script>
+            const heroImages = ['assets/IMG1.jpg', 'assets/IMG2.jpg', 'assets/IMG3.jpg', 'assets/Background.jpeg'];
+            let currentIndex = 0;
+            
+            function changeImage() {
+                const hero = document.getElementById('hero');
+                hero.style.backgroundImage = `url('${heroImages[currentIndex]}')`;
+                hero.style.backgroundSize = 'cover';
+                hero.style.backgroundPosition = 'center';
+                hero.style.backgroundRepeat = 'no-repeat';
+                hero.style.height = '500px';
+                currentIndex = (currentIndex + 1) % heroImages.length;
+            }
+            
+            changeImage();
+            setInterval(changeImage, 3000);
+        </script>
     </header>
     <section id="brochure" style="background: var(--card-bg); padding: 40px 0;">
         <h2 style="text-align: center;">Information Brochure</h2>
         <div style="display: flex; justify-content: center; align-items: center;">
-            <img id="brochure-img" src="assets/NST1.jpg" alt="Brochure Page 1" style="width: 500px; height: 500px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <img id="brochure-img" src="assets/NST1.jpg" alt="Brochure Page 1" style="width: 400px; height: 400px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
         </div>
         <div style="text-align: center; margin-top: 20px;">
             <button onclick="showBrochure(0)" style="margin-right: 10px;"><strong> < </strong></button>
@@ -96,15 +110,15 @@
         </script>
     </section>
 <section id="News" style="background: var(--section-bg); padding: 40px 0;">
-    <h2 style="text-align: center;">Latest Information.</h2>
-    <div class="grid-container" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-        <div class="card" style="width: 300px;">
+    <h2 style="text-align: center; padding: 110px; padding-bottom: -100vh;">Latest Information.</h2>
+    <div class="grid-container" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; padding: 50px; ">
+        <div class="card" style="width: 300px; ">
             <img id="info1-img" src="assets/Information/Info1.jpg" alt="News 1" style="width: 300px; height: 300px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <h3>BCA course is AICTE Approved !</h3>
             <p>We are excited to announce that our BCA (Bachelor of Computer Application) program has received AICTE approval.
             This accreditation ensures that our curriculum meets high standards of quality and industry relevance, enhancing student's educational and career opportunities</p>
         </div>
-        </section>
+</section>
 
 <section id="universities" style="background: var(--section-bg); padding: 40px 0;">
     <h2 style="text-align: center;">Partner Universities</h2>
