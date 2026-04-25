@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Login | NST INSTITUTE</title>
-    
-    
+    <title>NST gkp - Login</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body style="background-image: url('assets/Background.jpg'); background-size: cover; background-position: center; height: 100vh;">
@@ -21,18 +18,63 @@
 
     <div class="login-container" style="background-color: aliceblue;">
         <h2>Student/Staff Login</h2>
-        <form>
-            <label>Username</label>
-            <input type="text" placeholder="Enter your ID" required>
-            
-            <label>Password</label>
-            <input type="password" placeholder="Enter Password" required>
-            
+
+        <form id="loginForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your ID" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter Password" required>
+
             <button type="submit" class="btn">Login</button>
         </form>
+
+        <p id="message" style="text-align:center; color:red; margin-top: 10px;"></p>
+
         <p style="text-align: center; margin-top: 15px;">
             <a href="#">Forgot Password?</a>
         </p>
     </div>
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const message = document.getElementById("message");
+
+        loginForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            message.style.color = "red";
+            message.textContent = "Checking login...";
+
+            try {
+                const response = await fetch("/api/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    message.style.color = "green";
+                    message.textContent = "Login successful. Redirecting...";
+                    setTimeout(() => {
+                        window.location.href = "index.html";
+                    }, 1000);
+                } else {
+                    message.style.color = "red";
+                    message.textContent = data.message;
+                }
+            } catch (error) {
+                message.style.color = "red";
+                message.textContent = "Unable to connect to server";
+            }
+        });
+    </script>
 </body>
 </html>
