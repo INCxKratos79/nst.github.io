@@ -6,7 +6,7 @@
     <title>NST gkp - Login</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-image: url('assets/Background.jpg'); background-size: cover; background-position: center; height: 100vh;">
+<body style="background-image: url('assets/Background.jpg'); background-size: cover; background-position: center; min-height: 100vh;">
     <nav>
         <div class="logo">
             <a href="index.html"><img src="assets/nst.jpg" alt="NST Institute Logo" style="height:40px;"></a>
@@ -20,8 +20,8 @@
         <h2>Student/Staff Login</h2>
 
         <form id="loginForm">
-            <label for="username">Username</label>
-            <input type="text" id="username" placeholder="Enter your ID" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
 
             <label for="password">Password</label>
             <input type="password" id="password" placeholder="Enter Password" required>
@@ -29,51 +29,78 @@
             <button type="submit" class="btn">Login</button>
         </form>
 
-        <p id="message" style="text-align:center; color:red; margin-top: 10px;"></p>
+        <p id="message" style="text-align: center; margin-top: 15px; color: red;"></p>
 
         <p style="text-align: center; margin-top: 15px;">
-            <a href="#">Forgot Password?</a>
+            <a href="#" id="signupLink">Create New Account</a>
         </p>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        const SUPABASE_URL = "https://jlmkgqnxegrtjhbibfbi.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_-XHluHuVjDEkRVhgJJxLUQ_ccwuMfJt";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         const loginForm = document.getElementById("loginForm");
         const message = document.getElementById("message");
+        const signupLink = document.getElementById("signupLink");
 
         loginForm.addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value.trim();
 
-            message.style.color = "red";
-            message.textContent = "Checking login...";
+            message.style.color = "black";
+            message.textContent = "Logging in...";
 
-            try {
-                const response = await fetch("/api/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ username, password })
-                });
+            const { error } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
 
-                const data = await response.json();
-
-                if (data.success) {
-                    message.style.color = "green";
-                    message.textContent = "Login successful. Redirecting...";
-                    setTimeout(() => {
-                        window.location.href = "index.html";
-                    }, 1000);
-                } else {
-                    message.style.color = "red";
-                    message.textContent = data.message;
-                }
-            } catch (error) {
+            if (error) {
                 message.style.color = "red";
-                message.textContent = "Unable to connect to server";
+                message.textContent = error.message;
+                return;
             }
+
+            message.style.color = "green";
+            message.textContent = "Login successful. Redirecting...";
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
+        });
+
+        signupLink.addEventListener("click", async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (!email || !password) {
+                message.style.color = "red";
+                message.textContent = "Enter email and password first";
+                return;
+            }
+
+            message.style.color = "black";
+            message.textContent = "Creating account...";
+
+            const { error } = await supabaseClient.auth.signUp({
+                email: email,
+                password: password
+            });
+
+            if (error) {
+                message.style.color = "red";
+                message.textContent = error.message;
+                return;
+            }
+
+            message.style.color = "green";
+            message.textContent = "Account created. Now login.";
         });
     </script>
 </body>
