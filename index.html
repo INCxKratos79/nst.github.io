@@ -9,15 +9,14 @@
 <body>
     <nav>
         <div class="logo"><a href="index.html"><img src="assets/nst.jpg" alt="NST Institute Logo" style="height:40px;"></a></div>
-        <div style="display: flex; align-items: center;">
-            <button id="theme-toggle" onclick="toggleTheme()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; margin-right: 20px;">🌙</button>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div id="user-box" style="color: white; font-weight: bold;"></div>
+            <button id="logoutBtn" style="display: none; cursor: pointer; padding: 6px 12px; border: none; border-radius: 5px;">Logout</button>
+            <button id="theme-toggle" onclick="toggleTheme()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; margin-right: 8px;">??</button>
             <div class="menu-toggle" onclick="toggleMenu()" style="cursor:pointer;">
                 <span style="font-size: 28px;">&#9776;</span>
             </div>
         </div>
-        <div id="user-box" style="color: white; margin-left: 15px; font-weight: bold;"></div>
-        <button id="logoutBtn" style="display:none; margin-left: 10px; cursor:pointer;">Logout</button>
-
         <div id="nav-menu" class="nav-menu">
             <a href="index.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style:italic">Home</a>
             <a href="management.html" target="_blank" rel="noopener noreferrer" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Management</a>
@@ -25,7 +24,6 @@
             <a href="login.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Login Portal</a>
             <a href="courses.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Courses</a>
             <script>
-            // Add hover to open nav menu
             document.querySelector('.menu-toggle').addEventListener('mouseenter', function() {
                 document.getElementById('nav-menu').style.display = 'block';
             });
@@ -39,7 +37,6 @@
             var menu = document.getElementById('nav-menu');
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
             }
-            // Optional: Hide menu when clicking outside
             document.addEventListener('click', function(e) {
             var menu = document.getElementById('nav-menu');
             var toggle = document.querySelector('.menu-toggle');
@@ -53,23 +50,22 @@
                 const themeToggle = document.getElementById('theme-toggle');
                 body.classList.toggle('dark-theme');
                 if (body.classList.contains('dark-theme')) {
-                    themeToggle.textContent = '☀️';
+                    themeToggle.textContent = '??';
                     localStorage.setItem('theme', 'dark');
                 } else {
-                    themeToggle.textContent = '🌙';
+                    themeToggle.textContent = '??';
                     localStorage.setItem('theme', 'light');
                 }
             }
 
-            // Load saved theme on page load
             document.addEventListener('DOMContentLoaded', function() {
                 const savedTheme = localStorage.getItem('theme');
                 const themeToggle = document.getElementById('theme-toggle');
                 if (savedTheme === 'dark') {
                     document.body.classList.add('dark-theme');
-                    themeToggle.textContent = '☀️';
+                    themeToggle.textContent = '??';
                 } else {
-                    themeToggle.textContent = '🌙';
+                    themeToggle.textContent = '??';
                 }
             });
         </script>
@@ -206,48 +202,43 @@ Designation : Software Consultant Engineering(tech lead)</strong>
 
     <footer>
         <p>&copy; Designed & Developed by RISHABH | NST Institute. All Rights Reserved.</p>
-        
     </footer>
-<script>
-    async function loadLoggedInUser() {
-        const userBox = document.getElementById("user-box");
-        const logoutBtn = document.getElementById("logoutBtn");
 
-        try {
-            const response = await fetch("/api/me");
-            const data = await response.json();
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://jlmkgqnxegrtjhbibfbi.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_-XHluHuVjDEkRVhgJJxLUQ_ccwuMfJt";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            if (data.loggedIn) {
-                userBox.textContent = "Logged in as: " + data.user.username;
-                logoutBtn.style.display = "inline-block";
-            } else {
+        async function loadLoggedInUser() {
+            const userBox = document.getElementById("user-box");
+            const logoutBtn = document.getElementById("logoutBtn");
+
+            const { data, error } = await supabaseClient.auth.getUser();
+
+            if (error || !data.user) {
                 userBox.innerHTML = '<a href="login.html" style="color:white; text-decoration:none;">Login</a>';
+                logoutBtn.style.display = "none";
+                return;
             }
-        } catch (error) {
-            userBox.innerHTML = '<a href="login.html" style="color:white; text-decoration:none;">Login</a>';
-        }
-    }
 
-    async function logoutUser() {
-        try {
-            await fetch("/api/logout", {
-                method: "POST"
-            });
+            userBox.textContent = data.user.email;
+            logoutBtn.style.display = "inline-block";
+        }
+
+        async function logoutUser() {
+            await supabaseClient.auth.signOut();
             window.location.href = "login.html";
-        } catch (error) {
-            alert("Logout failed");
         }
-    }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        loadLoggedInUser();
+        document.addEventListener("DOMContentLoaded", function () {
+            loadLoggedInUser();
 
-        const logoutBtn = document.getElementById("logoutBtn");
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", logoutUser);
-        }
-    });
-</script>
-
+            const logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", logoutUser);
+            }
+        });
+    </script>
 </body>
 </html>
