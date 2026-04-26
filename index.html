@@ -12,7 +12,9 @@
         <div style="display: flex; align-items: center; gap: 12px;">
             <div id="user-box" style="color: white; font-weight: bold;"></div>
             <button id="logoutBtn" style="display: none; cursor: pointer; padding: 6px 12px; border: none; border-radius: 5px;">Logout</button>
-            <button id="theme-toggle" onclick="toggleTheme()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; margin-right: 8px;">Theme</button>
+            <button id="theme-toggle" onclick="toggleTheme()" style="background: none; border: none; cursor: pointer; margin-right: 8px;">
+    <img id="theme-icon" src="assets/Drk_48.png" alt="Theme Toggle" style="width: 24px; height: 24px;">
+</button>
             <div class="menu-toggle" onclick="toggleMenu()" style="cursor:pointer;">
                 <span style="font-size: 28px;">&#9776;</span>
             </div>
@@ -33,42 +35,47 @@
             </script>
         </div>
         <script>
-            function toggleMenu() {
-            var menu = document.getElementById('nav-menu');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-            }
-            document.addEventListener('click', function(e) {
-            var menu = document.getElementById('nav-menu');
-            var toggle = document.querySelector('.menu-toggle');
-            if (menu.style.display === 'block' && !menu.contains(e.target) && !toggle.contains(e.target)) {
-                menu.style.display = 'none';
-            }
-            });
+    function toggleMenu() {
+        var menu = document.getElementById('nav-menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
 
-            function toggleTheme() {
-                const body = document.body;
-                const themeToggle = document.getElementById('theme-toggle');
-                body.classList.toggle('dark-theme');
-                if (body.classList.contains('dark-theme')) {
-                    themeToggle.textContent = 'Light';
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    themeToggle.textContent = 'Theme';
-                    localStorage.setItem('theme', 'light');
-                }
-            }
+    document.addEventListener('click', function(e) {
+        var menu = document.getElementById('nav-menu');
+        var toggle = document.querySelector('.menu-toggle');
+        if (menu.style.display === 'block' && !menu.contains(e.target) && !toggle.contains(e.target)) {
+            menu.style.display = 'none';
+        }
+    });
 
-            document.addEventListener('DOMContentLoaded', function() {
-                const savedTheme = localStorage.getItem('theme');
-                const themeToggle = document.getElementById('theme-toggle');
-                if (savedTheme === 'dark') {
-                    document.body.classList.add('dark-theme');
-                    themeToggle.textContent = 'Light';
-                } else {
-                    themeToggle.textContent = 'Theme';
-                }
-            });
-        </script>
+    function toggleTheme() {
+        const body = document.body;
+        const themeIcon = document.getElementById('theme-icon');
+
+        body.classList.toggle('dark-theme');
+
+        if (body.classList.contains('dark-theme')) {
+            themeIcon.src = 'assets/Light_60.png';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeIcon.src = 'assets/Drk_48.png';
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedTheme = localStorage.getItem('theme');
+        const themeIcon = document.getElementById('theme-icon');
+
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeIcon.src = 'assets/Light_60.png';
+        } else {
+            themeIcon.src = 'assets/Drk_48.png';
+        }
+    });
+</script>
+
     </nav>
 
     <header class="hero" id="hero">
