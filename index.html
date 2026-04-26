@@ -12,7 +12,7 @@
         <div style="display: flex; align-items: center; gap: 12px;">
             <div id="user-box" style="color: white; font-weight: bold;"></div>
             <button id="logoutBtn" style="display: none; cursor: pointer; padding: 6px 12px; border: none; border-radius: 5px;">Logout</button>
-            <button id="theme-toggle" onclick="toggleTheme()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; margin-right: 8px;">??</button>
+            <button id="theme-toggle" onclick="toggleTheme()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; margin-right: 8px;">Theme</button>
             <div class="menu-toggle" onclick="toggleMenu()" style="cursor:pointer;">
                 <span style="font-size: 28px;">&#9776;</span>
             </div>
@@ -50,10 +50,10 @@
                 const themeToggle = document.getElementById('theme-toggle');
                 body.classList.toggle('dark-theme');
                 if (body.classList.contains('dark-theme')) {
-                    themeToggle.textContent = '??';
+                    themeToggle.textContent = 'Light';
                     localStorage.setItem('theme', 'dark');
                 } else {
-                    themeToggle.textContent = '??';
+                    themeToggle.textContent = 'Theme';
                     localStorage.setItem('theme', 'light');
                 }
             }
@@ -63,9 +63,9 @@
                 const themeToggle = document.getElementById('theme-toggle');
                 if (savedTheme === 'dark') {
                     document.body.classList.add('dark-theme');
-                    themeToggle.textContent = '??';
+                    themeToggle.textContent = 'Light';
                 } else {
-                    themeToggle.textContent = '??';
+                    themeToggle.textContent = 'Theme';
                 }
             });
         </script>
@@ -222,7 +222,11 @@ Designation : Software Consultant Engineering(tech lead)</strong>
                 return;
             }
 
-            userBox.textContent = data.user.email;
+            const user = data.user;
+            const displayName = user.user_metadata && user.user_metadata.display_name;
+            const fallbackName = user.email ? user.email.split('@')[0] : 'User';
+
+            userBox.textContent = displayName || fallbackName;
             logoutBtn.style.display = "inline-block";
         }
 
