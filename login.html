@@ -20,6 +20,9 @@
         <h2>Student/Staff Login</h2>
 
         <form id="loginForm">
+            <label for="displayName">Full Name</label>
+            <input type="text" id="displayName" placeholder="Enter your name">
+
             <label for="email">Email</label>
             <input type="email" id="email" placeholder="Enter your email" required>
 
@@ -76,12 +79,13 @@
         signupLink.addEventListener("click", async function (e) {
             e.preventDefault();
 
+            const displayName = document.getElementById("displayName").value.trim();
             const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value.trim();
 
-            if (!email || !password) {
+            if (!displayName || !email || !password) {
                 message.style.color = "red";
-                message.textContent = "Enter email and password first";
+                message.textContent = "Enter full name, email and password first";
                 return;
             }
 
@@ -90,7 +94,12 @@
 
             const { error } = await supabaseClient.auth.signUp({
                 email: email,
-                password: password
+                password: password,
+                options: {
+                    data: {
+                        display_name: displayName
+                    }
+                }
             });
 
             if (error) {
