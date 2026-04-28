@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NST gkp - Contact </title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav>
+       <div class="logo"><a href="index.html"><img src="assets/nst.jpg" alt="NST Institute Logo" style="height:40px;"></a></div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div id="user-box" style="color: white; font-weight: bold;"></div>
+            <button id="logoutBtn" style="display: none; cursor: pointer; padding: 6px 12px; border: none; border-radius: 5px;">Logout</button>
+            <button id="theme-toggle" onclick="toggleTheme()" style="background: none; border: none; cursor: pointer; margin-right: 8px;">
+    <img id="theme-icon" src="assets/Drk_48.png" alt="Theme Toggle" style="width: 24px; height: 24px;">
+</button>
+            <div class="menu-toggle" onclick="toggleMenu()" style="cursor:pointer;">
+                <span style="font-size: 28px;">&#9776;</span>
+            </div>
+        </div>
+        <div id="nav-menu" class="nav-menu">
+            <a href="index.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-style:italic">Home</a>
+            <a href="management.html" target="_blank" rel="noopener noreferrer" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Management</a>
+            <a href="index.html#facilities" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Facilities</a>
+            <a href="login.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Login Portal</a>
+            <a href="courses.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Courses</a>
+            </div>
+        <script>
+    function toggleMenu() {
+        var menu = document.getElementById('nav-menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    document.addEventListener('click', function(e) {
+        var menu = document.getElementById('nav-menu');
+        var toggle = document.querySelector('.menu-toggle');
+        if (menu.style.display === 'block' && !menu.contains(e.target) && !toggle.contains(e.target)) {
+            menu.style.display = 'none';
+        }
+    });
+
+    function toggleTheme() {
+        const body = document.body;
+        const themeIcon = document.getElementById('theme-icon');
+
+        body.classList.toggle('dark-theme');
+
+        if (body.classList.contains('dark-theme')) {
+            themeIcon.src = 'assets/Light_60.png';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeIcon.src = 'assets/Drk_48.png';
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedTheme = localStorage.getItem('theme');
+        const themeIcon = document.getElementById('theme-icon');
+
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeIcon.src = 'assets/Light_60.png';
+        } else {
+            themeIcon.src = 'assets/Drk_48.png';
+        }
+    });
+</script>
+    </nav>
+<section id="maps">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.8314497281413!2d83.37099377453522!3d26.74975427674466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399144649fda69af%3A0x82e91585dad81c98!2sNew%20Steps%20Technology(NST)!5e0!3m2!1sen!2sin!4v1777386427718!5m2!1sen!2sin"  width="800" height="350" style="margin-left: 20%;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    
+</section>
+<div class="Login-container" style="background-color:rgb(151, 197, 226);">
+<form class="contact-form" id="contactForm" novalidate="" style="margin-left: 100px; border:20%;">
+        <label class="field" style="width:30%; align-items:fit-content;">
+          <span>Name<span style="margin-left: 150%;">Address:</span></span>
+          <input id="name" name="name" type="text" placeholder="Enter your full name" autocomplete="name" required="">
+        </label>
+
+        <label class="field" style="width: 30%;">
+          <span>Email</span>
+          <input id="email" name="email" type="email" placeholder="Enter your email address" autocomplete="email" required="">
+        </label>
+
+        <label class="field" style="width: 30%;">
+          <span>Description</span>
+          <textarea id="description" name="description" rows="5" placeholder="Tell us about your Query or question" required=""></textarea>
+        </label>
+
+        <button class="submit-button" type="submit" style="width: 33%">Submit Message</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        <span style="margin-left: 30%;">Contact Us</span>
+      </form>
+      </div>
+    <footer>
+        <p>&copy; Designed & Developed by RISHABH | NST Institute. All Rights Reserved.</p>
+        <p2></p2>
+    </footer>
+
+</body>
+</html>
