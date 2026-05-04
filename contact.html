@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NST gkp - Contact </title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <nav>
@@ -25,6 +26,7 @@
             <a href="index.html#facilities" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Facilities</a>
             <a href="login.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Login Portal</a>
             <a href="courses.html" style="font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Courses</a>
+            <a href="contact.html" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Contact</a>
             </div>
         <script>
     function toggleMenu() {
@@ -69,35 +71,99 @@
 </script>
     </nav>
 <section id="maps">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.8314497281413!2d83.37099377453522!3d26.74975427674466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399144649fda69af%3A0x82e91585dad81c98!2sNew%20Steps%20Technology(NST)!5e0!3m2!1sen!2sin!4v1777386427718!5m2!1sen!2sin"  width="800" height="350" style="margin-left: 20%;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.8314497281413!2d83.37099377453522!3d26.74975427674466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399144649fda69af%3A0x82e91585dad81c98!2sNew%20Steps%20Technology(NST)!5e0!3m2!1sen!2sin!4v1777386427718!5m2!1sen!2sin"  width="600" height="350" style="margin-left: 25%;"  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     
 </section>
 <div class="Login-container" style="background-color:rgb(151, 197, 226);">
-<form class="contact-form" id="contactForm" novalidate="" style="margin-left: 100px; border:20%;">
-        <label class="field" style="width:30%; align-items:fit-content;">
-          <span>Name<span style="margin-left: 150%;">Address:</span></span>
+<form class="contact-form" id="contactForm" novalidate="" style="margin-left: 35%; border:10%;">
+        <label class="field" style="width:40%; align-items:fit-content;">
+          <span>Name</span>
           <input id="name" name="name" type="text" placeholder="Enter your full name" autocomplete="name" required="">
         </label>
 
-        <label class="field" style="width: 30%;">
+        <label class="field" style="width: 40%; ">
           <span>Email</span>
           <input id="email" name="email" type="email" placeholder="Enter your email address" autocomplete="email" required="">
         </label>
 
-        <label class="field" style="width: 30%;">
+        <label class="field" style="width: 40%;">
           <span>Description</span>
           <textarea id="description" name="description" rows="5" placeholder="Tell us about your Query or question" required=""></textarea>
         </label>
 
-        <button class="submit-button" type="submit" style="width: 33%">Submit Message</button>
+        <button class="submit-button" type="submit" style="width: 43%">Submit Message</button>
         <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-        <span style="margin-left: 30%;">Contact Us</span>
       </form>
       </div>
     <footer>
         <p>&copy; Designed & Developed by RISHABH | NST Institute. All Rights Reserved.</p>
         <p2></p2>
     </footer>
+
+    <script>
+        const SUPABASE_URL = 'https://jlmkgqnxegrtjhbibfbi.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_-XHluHuVjDEkRVhgJJxLUQ_ccwuMfJt';
+        const SUPABASE_TABLE = 'contact_messages';
+
+        const supabaseClient =
+            SUPABASE_URL !== 'YOUR_SUPABASE_URL' &&
+            SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY'
+                ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+                : null;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const contactForm = document.getElementById('contactForm');
+            const formStatus = document.getElementById('formStatus');
+
+            if (!contactForm || !formStatus) {
+                return;
+            }
+
+            contactForm.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const description = document.getElementById('description').value.trim();
+
+                if (!name || !email || !description) {
+                    formStatus.textContent = 'Please fill in all fields before submitting.';
+                    formStatus.style.color = 'red';
+                    return;
+                }
+
+                if (!supabaseClient) {
+                    formStatus.textContent = 'Supabase is not configured yet. Add your project URL and anon key first.';
+                    formStatus.style.color = 'red';
+                    return;
+                }
+
+                formStatus.textContent = 'Submitting your message...';
+                formStatus.style.color = '#333';
+
+                const { error } = await supabaseClient
+                    .from(SUPABASE_TABLE)
+                    .insert([
+                        {
+                            name: name,
+                            email: email,
+                            description: description
+                        }
+                    ]);
+
+                if (error) {
+                    console.error('Supabase insert failed:', error);
+                    formStatus.textContent = 'Could not submit your message. Please try again.';
+                    formStatus.style.color = 'red';
+                    return;
+                }
+
+                contactForm.reset();
+                formStatus.textContent = 'Your message has been submitted successfully.';
+                formStatus.style.color = 'green';
+            });
+        });
+    </script>
 
 </body>
 </html>
